@@ -10,7 +10,9 @@ dependencies = [
     "langchain-tavily>=0.2.7",
     "langgraph>=0.5.2",
     "openai>=1.95.1",
+    "pydantic>=2.9.2",
     "pydantic-core>=2.23.4",
+    "python-dotenv>=1.1.1",
 ]
 
 [project.optional-dependencies]
@@ -107,7 +109,7 @@ addopts = [
     "-v",
     "--strict-markers",
     "--strict-config",
-    "--cov=aws_mcp",
+    "--cov=aws_agent",
     "--cov-report=term-missing",
     "--cov-report=html",
     "--cov-report=xml",
@@ -119,7 +121,7 @@ markers = [
 
 # Coverage configuration
 [tool.coverage.run]
-source = ["src/aws_mcp"]
+source = ["src/aws_agent"]
 omit = [
     "*/tests/*",
     "*/test_*",
@@ -140,13 +142,14 @@ exclude_lines = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/aws_mcp"]
+packages = ["src/aws_agent"]
 
 [tool.hatch.build.editable]
-packages = ["src/aws_mcp"]
+packages = ["src/aws_agent"]
 
 [dependency-groups]
 dev = [
     "bandit>=1.8.6",
+    "ipykernel>=6.29.5",
     "safety>=3.6.0",
 ]
