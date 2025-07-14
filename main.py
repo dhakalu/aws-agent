@@ -1,24 +1,20 @@
-import sys
-from pathlib import Path
-
 from dotenv import load_dotenv
+
+from src.aws_agent.github_models import get_response
 
 load_dotenv()
 
-# Add src directory to Python path for development
-src_path = Path(__file__).parent / "src"
-sys.path.insert(0, str(src_path))
-
-from aws_agent import create_client  # noqa: E402
-
-client = create_client()
-
 
 def main() -> None:
-    response = client.chat.completions.create(
-        model="gpt-3o", messages=[{"role": "user", "content": "Hello from aws-agent!"}]
-    )
-    print(response.choices[0].message.content)
+    while True:
+        user_input = input("Enter a command (or 'exit' to quit): ")
+        if user_input.lower() == "exit":
+            break
+        try:
+            response = get_response(user_input)
+            print(response)
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
 
 if __name__ == "__main__":
